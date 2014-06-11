@@ -1,0 +1,88 @@
+<App>
+	<!-- XML文件的版本号，程序检查此项的值与服务器做对比，决定更不更新 -->
+	<XMLVer>1.0</XMLVer>
+
+	<AppVer>1.1</AppVer>
+
+	<AppName>游戏名称</AppName>
+
+	<AppID>游戏ID</AppID>
+
+	<ChannelID>渠道ID</ChannelID>
+	
+	<MMSDKConfig>
+	    <MMKey>300001471175</MMKey>
+	    <MMID>9F61262A660D8AEB</MMID>
+	</MMSDKConfig>
+
+	<AppProps>待扩展</AppProps>
+
+	<Items>
+		<item itemCode = "0007">
+			<itemName>金币</itemName>
+			<itemPrice>1000</itemPrice>
+			<itemNumber>100</itemNumber>
+
+			<itemprops>
+				<discount>75</discount>
+				<monthly>1</monthly>
+			</itemprops>
+
+			<payProps>
+					<pay payType="0" >
+						<payCode>014</payCode>
+					</pay>
+
+					<pay payType="1">
+						<payCode>0025</payCode>
+					</pay>
+
+					<pay payType="2">
+						<merID>6851</merID>
+						<goodsID>010</goodsID>
+						<amount>10</amount>
+					</pay>	
+			</payProps>
+
+			<feedback>
+					<feedbackItemName>金币</feedbackItemName>
+					<feedbackItemCode>0007</feedbackItemCode>
+					<feedbackItemNumber>100</feedbackItemNumber>
+			</feedback>
+		</item>
+
+		<item itemCode = "0008">
+			<itemName>金币</itemName>
+			<itemPrice>100</itemPrice>
+			<itemNumber>10</itemNumber>
+
+			<itemprops>
+				<discount>90</discount>
+				<monthly>1</monthly>
+			</itemprops>
+
+			<payProps>
+					<pay payType="0" >
+						<payCode>010</payCode>
+					</pay>
+
+					<pay payType="1">
+						<payCode>0025</payCode>
+					</pay>
+
+					<pay payType="2">
+						<merID>6851</merID>
+						<goodsID>010</goodsID>
+						<amount>10</amount>
+					</pay>	
+			</payProps>
+
+			<feedback>
+					<feedbackItemName>金币</feedbackItemName>
+					<feedbackItemCode>0007</feedbackItemCode>
+					<feedbackItemNumber>100</feedbackItemNumber>
+			</feedback>
+		</item>
+	</Items>
+</App>
+
