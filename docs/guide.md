@@ -124,19 +124,22 @@ protected void onDestroy() {
 ```
 
 ---
-##5. Send Payment
+##5. Usage
 
+###Send payment request
 Use `doPayment` perform IAP
 
 ```java
 public void doPayment(Context context, String PayCode, PaymentCallback callback);
 ```
-Context: The `Activity` where it was created
+**Context**: The `Activity` where it was created
 
-PayCode: The ID for the IAP item
+**PayCode**: The ID for the IAP item
 
-Callback: The callback for this transaction
+**Callback**: The callback for this transaction
 
+
+Example:
 ```java
 CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback() {
 
@@ -154,7 +157,15 @@ CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback(
 	
 });
 ```
-
-The `PaymentResult` returns from the callback will contain the PayCode indicating which item is associated with the payment
+###Receive payment result
+The `PaymentResult` returns from the callback will contain the `PayCode` indicating which item is associated with the payment
+Example
+```java
+	public void paySuccess(PaymentResult result) {
+		if(result.payCode.equals(mItemCode)){
+			System.out.println("Success!");
+		}
+	}
+```
 
 ---
