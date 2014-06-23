@@ -1,3 +1,6 @@
+build.xml
+.settings/
+
 # Built application files
 *.apk
 *.ap_
