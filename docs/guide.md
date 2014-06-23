@@ -2,19 +2,22 @@ AnyStore SDK Integration Guide
 ====
 
 ##1. Package
----
+
 SDK: AnyStore SDK integration files
 
 Demo: A Demo project demostrates how to integrate AnyStore SDK
 
 docs: Documentations
 
-##2. Setup
 ---
+
+##2. Setup
+
 Copy every thing under SDK folder to your porject folder
 
-##3. Edit AndroidManifest
 ---
+##3. Edit AndroidManifest
+
 Adding the following permission to AndroidManifest.xml
 
 ```xml
@@ -25,10 +28,9 @@ Adding the following permission to AndroidManifest.xml
 
 ```xml
 <applicationandroid:allowBackup="true"android:name=".App"android:icon="@drawable/ic_launcher"android:label="@string/app_name">
-</application>```
+</application>```---
 ##4. Initialize AnyStore SDK
 
----
 ####Add the following line to your `Application` Class
 
 ```java
@@ -59,8 +61,8 @@ protected void onDestroy() {
 	CkSdkApi.getInstance().onDestroy();
 }```
 
-##5. Send Payment
 ---
+##5. Send Payment
 
 Use `doPayment` perform IAP
 
@@ -92,3 +94,5 @@ CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback(
 ```
 
 The `PaymentResult` returns from the callback will contain the PayCode indicating which item is associated with the payment
+
+---
