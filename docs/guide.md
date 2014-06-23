@@ -125,7 +125,7 @@ protected void onDestroy() {
 ```
 
 ---
-##5. Usage
+#Usage
 
 ###Send payment request
 Use `CkSdkApi.getInstance().doPayment` to send payment request
