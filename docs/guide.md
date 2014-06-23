@@ -28,7 +28,7 @@ Adding the following permission to AndroidManifest.xml
 
 ####Add the following line to your `Application` Class
 
-```
+```java
 import com.ckmobilling.CkSdkApi;
 
 public class App extends Application {	@Override	public void onCreate() {		super.onCreate();
@@ -36,7 +36,7 @@ public class App extends Application {	@Override	public void onCreate() {		su
 ```
 ####Add the folloing line to your `Activity` Class
 
-```
+```java
 import com.ckmobilling.CkSdkApi;
 import com.ckmobilling.PaymentCallback;
 import com.ckmobilling.PaymentResult;
@@ -61,7 +61,7 @@ protected void onDestroy() {
 
 Use `doPayment` perform IAP
 
-```
+```java
 public void doPayment(Context context, String PayCode, PaymentCallback callback);
 ```
 Context: The `Activity` where it was created
@@ -70,22 +70,22 @@ PayCode: The ID for the IAP item
 
 Callback: The callback for this transaction
 
-```
-		CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback() {
+```java
+CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback() {
 
-			@Override
-			public void paySuccess(PaymentResult result) {
-			}
+	@Override
+	public void paySuccess(PaymentResult result) {
+	}
 
-			@Override
-			public void payFailed(PaymentResult result) {
-			}
+	@Override
+	public void payFailed(PaymentResult result) {
+	}
 
-			@Override
-			public void payCanceled(PaymentResult result) {
-			}
-			
-		});
+	@Override
+	public void payCanceled(PaymentResult result) {
+	}
+	
+});
 ```
 
 The `PaymentResult` returns from the callback will contain the PayCode indicating which item is associated with the payment
