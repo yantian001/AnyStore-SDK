@@ -4,16 +4,27 @@
 
 	<AppVer>1.1</AppVer>
 
-	<AppName>游戏名称</AppName>
+	<AppName>测试游戏</AppName>
 
-	<AppID>游戏ID</AppID>
+	<AppID>123456</AppID>
 
-	<ChannelID>渠道ID</ChannelID>
+	<ChannelID>23</ChannelID>
 	
 	<MMSDKConfig>
 	    <MMKey>300001471175</MMKey>
 	    <MMID>9F61262A660D8AEB</MMID>
 	</MMSDKConfig>
+
+	<MDOConfig>
+		<DeductionNum>10658077016631</DeductionNum><!-- 扣费长号 -->
+		<ContentIndex>252436</ContentIndex><!-- 内容编号 -->
+		<ContentName>捕鱼达人土豪金</ContentName><!-- 内容名称 -->
+		<BusinessName>200金币</BusinessName><!-- 业务名称 -->
+		<Expenses>200</Expenses><!-- 资费(可选) -->
+		<Channel>23</Channel><!-- 已审批通过分配的子渠道 -->
+	</MDOConfig>
+
+
 
 	<AppProps>待扩展</AppProps>
 
@@ -41,6 +52,11 @@
 						<merID>6851</merID>
 						<goodsID>010</goodsID>
 						<amount>10</amount>
+					</pay>
+					<pay payType="3"><!-- MDO -->
+						<contentID>6250</contentID><!-- 内容Id(四位数) -->
+						<bussinessIndex>1850925</bussinessIndex><!-- 业务编号 -->
+						<payCodeIndex>1</payCodeIndex><!-- 计费点编号 -->
 					</pay>	
 			</payProps>
 

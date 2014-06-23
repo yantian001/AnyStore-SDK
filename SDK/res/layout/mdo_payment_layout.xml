@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:layout_gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/mdo_title"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginTop="50dp"
+    	android:gravity="center"
+    	android:text="话费支付中心"
+    	android:textColor="#131413"
+    	android:textSize="24sp" />
+    
+	<LinearLayout
+	    android:id="@+id/panel_pay"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_margin="10dp"
+	    android:orientation="vertical" >
+	    
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:layout_marginTop="30dp"
+	        android:background="#454545" />
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:paddingTop="20dp"
+	    	android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:gravity="right"
+	            android:textColor="#131413"
+	    		android:textSize="16sp"
+	            android:text="内容名称：" />
+	        
+	        <TextView
+	            android:id="@+id/content_name"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:textColor="#131413"
+	    		android:textSize="16sp" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:paddingTop="20dp"
+	    	android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:gravity="right"
+	            android:textColor="#131413"
+	    		android:textSize="16sp"
+	            android:text="业务名称：" />
+	        
+	        <TextView
+	            android:id="@+id/bussiness_name"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:textColor="#131413"
+	    		android:textSize="16sp" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:paddingTop="20dp"
+	    	android:orientation="horizontal" >
+	        
+	        <TextView
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:gravity="right"
+	            android:textColor="#131413"
+	    		android:textSize="16sp"
+	            android:text="资费：" />
+	        
+	        <TextView
+	            android:id="@+id/expenses"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:textColor="#131413"
+	    		android:textSize="16sp" />
+	    </LinearLayout>
+	    
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:layout_marginTop="20dp"
+	        android:background="#454545" />
+	    
+	    <Button
+	        android:id="@+id/mdo_btn_pay"
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:layout_marginTop="50dp"
+	    	android:layout_marginLeft="10dp"
+	    	android:layout_marginRight="10dp"
+	    	android:background="@drawable/mdo_btn_pay"
+	    	android:layout_gravity="center"
+	    	android:text="确认支付"
+	    	android:textColor="#ffffff"
+	    	android:textSize="18sp" />
+	    
+	</LinearLayout>
+    
+</LinearLayout>

@@ -22,7 +22,7 @@
 
     <application
         android:allowBackup="true"
-        android:name="com.ckmobilling.CkSdkApp"
+        android:name=".App"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
@@ -35,17 +35,7 @@
             </intent-filter>
         </activity>
         
-		<!-- 添加话付宝支付服务 -->
-        <activity
-            android:name="com.umpay.huafubao.ui.BillingActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true" >
-        </activity>
-        
-        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
-        <!-- 添加话付宝支付服务完毕 -->
-        
-		<service android:name="com.ckmobilling.CkService"
+        <service android:name="com.ckmobilling.CkService"
 		    android:exported="true"
 		    android:process=":remote" >
             <intent-filter>
@@ -53,10 +43,19 @@
             </intent-filter>
         </service>
         
-		<!-- 触控分配的app id -->
-        <meta-data android:name="app_id" android:value="/ 2014" />
-        <!-- 应用渠道号 -->
-        <meta-data android:name="app_channel" android:value="/ 23" />
+		<activity
+            android:name="com.ckmobilling.MdoPayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true" >
+       	</activity>
+		
+        <activity
+            android:name="com.umpay.huafubao.ui.BillingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true" >
+        </activity>
+        
+        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
     </application>
 
 </manifest>
