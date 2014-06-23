@@ -13,7 +13,7 @@ docs: Documentations
 
 ##2. Setup
 
-Copy every thing under SDK folder to your porject folder
+Copy everything under SDK folder to your porject folder
 
 ---
 ##3. Edit AndroidManifest
@@ -21,14 +21,57 @@ Copy every thing under SDK folder to your porject folder
 Adding the following permission to AndroidManifest.xml
 
 ```xml
-<uses-permissionandroid:name="android.permission.INTERNET"/><uses-permissionandroid:name="android.permission.ACCESS_NETWORK_STATE"/><uses-permissionandroid:name="android.permission.ACCESS_WIFI_STATE"/><uses-permissionandroid:name="android.permission.ACCESS_COARSE_LOCATION"/><uses-permissionandroid:name="android.permission.ACCESS_FINE_LOCATION"/><uses-permissionandroid:name="android.permission.WRITE_EXTERNAL_STORAGE"/><uses-permissionandroid:name="android.permission.SEND_SMS"/><uses-permissionandroid:name="android.permission.READ_PHONE_STATE"/><uses-permissionandroid:name="android.permission.READ_CONTACTS"/><uses-permissionandroid:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/><uses-permissionandroid:name="android.permission.GET_TASKS"/>```
-Reigister the following services and activities```xml
-<serviceandroid:name="com.ckmobilling.CkService"android:exported="true"android:process=":remote"><intent-filter><actionandroid:name="com.ckmobilling.ICkService"/></intent-filter></service><activityandroid:name="com.ckmobilling.MdoPayActivity"android:configChanges="orientation|keyboardHidden"android:excludeFromRecents="true"></activity><activityandroid:name="com.umpay.huafubao.ui.BillingActivity"android:configChanges="orientation|keyboardHidden"android:excludeFromRecents="true"></activity>
-<serviceandroid:name="com.umpay.huafubao.service.AppUpgradeService"/>```Make sure set the android:name
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+```
+
+Reigister the following services and activities
 
 ```xml
-<applicationandroid:allowBackup="true"android:name=".App"android:icon="@drawable/ic_launcher"android:label="@string/app_name">
-</application>```---
+<serviceandroid:name="com.ckmobilling.CkService"
+android:exported="true"
+android:process=":remote">
+<intent-filter>
+<actionandroid:name="com.ckmobilling.ICkService"/>
+</intent-filter>
+</service>
+
+<activityandroid:name="com.ckmobilling.MdoPayActivity"
+android:configChanges="orientation|keyboardHidden"
+android:excludeFromRecents="true">
+</activity>
+
+<activityandroid:name="com.umpay.huafubao.ui.BillingActivity"
+android:configChanges="orientation|keyboardHidden"
+android:excludeFromRecents="true">
+</activity>
+
+<serviceandroid:name="com.umpay.huafubao.service.AppUpgradeService"/>
+```
+
+Make sure set the android:name
+
+```xml
+<application
+android:allowBackup="true"
+android:name=".App"
+android:icon="@drawable/ic_launcher"
+android:label="@string/app_name">
+
+</application>
+```
+
+---
+
 ##4. Initialize AnyStore SDK
 
 ####Add the following line to your `Application` Class
@@ -36,8 +79,14 @@ Adding the following permission to AndroidManifest.xml
 ```java
 import com.ckmobilling.CkSdkApi;
 
-public class App extends Application {	@Override	public void onCreate() {		super.onCreate();
-		CkSdkApi.getInstance().loadLibrary(this);	}}
+public class App extends Application {
+	@Override
+	public void onCreate() {
+		super.onCreate();
+
+		CkSdkApi.getInstance().loadLibrary(this);
+	}
+}
 ```
 ####Add the folloing line to your `Activity` Class
 
@@ -46,9 +95,13 @@ import com.ckmobilling.CkSdkApi;
 import com.ckmobilling.PaymentCallback;
 import com.ckmobilling.PaymentResult;
 
-protected void onCreate(Bundle savedInstanceState) {	super.onCreate(savedInstanceState);
-	CkSdkApi.getInstance().initialize(this);}
-	
+protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+
+	CkSdkApi.getInstance().initialize(this);
+}
+
+	
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	super.onActivityResult(requestCode, resultCode, data);
@@ -59,7 +112,9 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 protected void onDestroy() {
 	super.onDestroy();
 	CkSdkApi.getInstance().onDestroy();
-}```
+}
+
+```
 
 ---
 ##5. Send Payment
