@@ -37,25 +37,27 @@ Adding the following permission to AndroidManifest.xml
 Reigister the following services and activities
 
 ```xml
-<serviceandroid:name="com.ckmobilling.CkService"
-android:exported="true"
-android:process=":remote">
-<intent-filter>
-<actionandroid:name="com.ckmobilling.ICkService"/>
-</intent-filter>
-</service>
-
-<activityandroid:name="com.ckmobilling.MdoPayActivity"
-android:configChanges="orientation|keyboardHidden"
-android:excludeFromRecents="true">
-</activity>
-
-<activityandroid:name="com.umpay.huafubao.ui.BillingActivity"
-android:configChanges="orientation|keyboardHidden"
-android:excludeFromRecents="true">
-</activity>
-
-<serviceandroid:name="com.umpay.huafubao.service.AppUpgradeService"/>
+        <service android:name="com.ckmobilling.CkService"
+		    android:exported="true"
+		    android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.ckmobilling.ICkService" />
+            </intent-filter>
+        </service>
+        
+		<activity
+            android:name="com.ckmobilling.MdoPayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true" >
+       	</activity>
+		
+        <activity
+            android:name="com.umpay.huafubao.ui.BillingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true" >
+        </activity>
+        
+        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
 ```
 
 Make sure set the android:name
