@@ -60,8 +60,27 @@ Reigister the following services and activities
         <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
 ```
 
-Make sure set the android:name
+---
 
+##4. Initialize AnyStore SDK
+
+####Create a `Application` class if you don't already have one, and add the following line to it
+
+```java
+import com.ckmobilling.CkSdkApi;
+import android.app.Application;
+
+public class App extends Application {
+	@Override
+	public void onCreate() {
+		super.onCreate();
+        
+        //Load AnyStore API
+		CkSdkApi.getInstance().loadLibrary(this);
+	}
+}
+```
+Update the AndroidManifest and make sure `android:name` was set correctly
 ```xml
 <application
 android:allowBackup="true"
@@ -72,24 +91,6 @@ android:label="@string/app_name">
 </application>
 ```
 
----
-
-##4. Initialize AnyStore SDK
-
-####Add the following line to your `Application` Class
-
-```java
-import com.ckmobilling.CkSdkApi;
-
-public class App extends Application {
-	@Override
-	public void onCreate() {
-		super.onCreate();
-
-		CkSdkApi.getInstance().loadLibrary(this);
-	}
-}
-```
 ####Add the folloing line to your `Activity` Class
 
 ```java
@@ -99,20 +100,24 @@ import com.ckmobilling.PaymentResult;
 
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-
+    
+    //Initialize
 	CkSdkApi.getInstance().initialize(this);
 }
 
-	
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	super.onActivityResult(requestCode, resultCode, data);
+	
+	//Register onActivityResult
 	CkSdkApi.getInstance().onActivityResult(requestCode, resultCode, data);
 }
 
 @Override
 protected void onDestroy() {
 	super.onDestroy();
+	
+	//Clean up
 	CkSdkApi.getInstance().onDestroy();
 }
 
