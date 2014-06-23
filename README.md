@@ -1,2 +1,2 @@
-PaymentSDK
+Cocos Payment
 ==========
