@@ -1,2 +1,2 @@
-Cocos Payment
+AnyStore SDK
 ==========
