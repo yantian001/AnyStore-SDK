@@ -60,6 +60,12 @@ Reigister the following services and activities
         
         <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
 ```
+Add `app_id` and `app_channel` assgined by AnyStore
+
+```xml
+        <meta-data android:name="app_id" android:value="/ 2014" />
+        <meta-data android:name="app_channel" android:value="/ 23" />
+```
 
 ---
 
@@ -161,7 +167,7 @@ CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback(
 ###Receive payment result
 The `PaymentResult` returns from the callback will contain the `PayCode` indicating which item is associated with the payment
 
-Example
+Example:
 ```java
 	public void paySuccess(PaymentResult result) {
 		if(result.payCode.equals(mItemCode)){
