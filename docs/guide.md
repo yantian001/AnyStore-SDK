@@ -1,22 +1,23 @@
 AnyStore SDK Integration Guide
 ====
 
-##1. Package
+#Package contents
 
-SDK: AnyStore SDK integration files
+**SDK**: AnyStore SDK integration files
 
-Demo: A Demo project demostrates how to integrate AnyStore SDK
+**Demo**: A Demo project demostrates how to integrate AnyStore SDK
 
-docs: Documentations
+**docs**: Documentations
 
 ---
 
-##2. Setup
+#Installation
 
+###Android Project Integration
 Copy everything under SDK folder to your porject folder
 
 ---
-##3. Edit AndroidManifest
+###Edit AndroidManifest.xml
 
 Adding the following permission to AndroidManifest.xml
 
@@ -62,7 +63,7 @@ Reigister the following services and activities
 
 ---
 
-##4. Initialize AnyStore SDK
+###Code Integration
 
 ####Create a `Application` class if you don't already have one, and add the following line to it
 
@@ -127,17 +128,17 @@ protected void onDestroy() {
 ##5. Usage
 
 ###Send payment request
-Use `doPayment` perform IAP
+Use `CkSdkApi.getInstance().doPayment` to send payment request
 
 ```java
 public void doPayment(Context context, String PayCode, PaymentCallback callback);
 ```
-**Context**: The `Activity` where it was created
-
-**PayCode**: The ID for the IAP item
-
-**Callback**: The callback for this transaction
-
+**Parameters:**
+```
+Context: The `Activity` where it was created
+PayCode: The ID for the IAP item
+Callback: The callback for this transaction
+```
 
 Example:
 ```java
@@ -159,6 +160,7 @@ CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback(
 ```
 ###Receive payment result
 The `PaymentResult` returns from the callback will contain the `PayCode` indicating which item is associated with the payment
+
 Example
 ```java
 	public void paySuccess(PaymentResult result) {
