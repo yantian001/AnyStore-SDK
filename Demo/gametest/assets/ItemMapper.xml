@@ -1,13 +1,16 @@
 <App>
-	<!-- XML文件的版本号，程序检查此项的值与服务器做对比，决定更不更新 -->
+	<!-- The version number of this config file, it will auto update this based on the version on the server-->
 	<XMLVer>1.0</XMLVer>
 
 	<AppVer>1.1</AppVer>
 
-	<AppName>测试游戏</AppName>
+	<!-- App Name -->
+	<AppName>testgame</AppName>
 
+	<!-- App ID assigned by AnyStore -->
 	<AppID>123456</AppID>
 
+	<!-- Channel ID assigned by AnyStore -->
 	<ChannelID>23</ChannelID>
 	
 	<MMSDKConfig>
@@ -16,22 +19,24 @@
 	</MMSDKConfig>
 
 	<MDOConfig>
-		<DeductionNum>10658077016631</DeductionNum><!-- 扣费长号 -->
-		<ContentIndex>252436</ContentIndex><!-- 内容编号 -->
-		<ContentName>捕鱼达人土豪金</ContentName><!-- 内容名称 -->
-		<BusinessName>200金币</BusinessName><!-- 业务名称 -->
-		<Expenses>200</Expenses><!-- 资费(可选) -->
-		<Channel>23</Channel><!-- 已审批通过分配的子渠道 -->
+		<DeductionNum>10658077016631</DeductionNum>
+		<ContentIndex>252436</ContentIndex>
+		<ContentName>捕鱼达人土豪金</ContentName>
+		<BusinessName>200金币</BusinessName>
+		<Expenses>200</Expenses>
+		<Channel>23</Channel>
 	</MDOConfig>
 
-
-
-	<AppProps>待扩展</AppProps>
+	<!-- Reserved for extension -->
+	<AppProps></AppProps>
 
 	<Items>
 		<item itemCode = "0007">
+			<!-- Name of the item -->
 			<itemName>金币</itemName>
+			<!-- Price of the item -->
 			<itemPrice>1000</itemPrice>
+			<!-- Quantity of the item -->
 			<itemNumber>100</itemNumber>
 
 			<itemprops>
@@ -53,10 +58,10 @@
 						<goodsID>010</goodsID>
 						<amount>10</amount>
 					</pay>
-					<pay payType="3"><!-- MDO -->
-						<contentID>6250</contentID><!-- 内容Id(四位数) -->
-						<bussinessIndex>1850925</bussinessIndex><!-- 业务编号 -->
-						<payCodeIndex>1</payCodeIndex><!-- 计费点编号 -->
+					<pay payType="3">
+						<contentID>6250</contentID>
+						<bussinessIndex>1850925</bussinessIndex>
+						<payCodeIndex>1</payCodeIndex>
 					</pay>	
 			</payProps>
 
