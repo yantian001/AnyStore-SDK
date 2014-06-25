@@ -26,7 +26,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback() {
+		CkSdkApi.getInstance().doPayment(MainActivity.this, "0001", new PaymentCallback() {
 
 			@Override
 			public void paySuccess(PaymentResult result) {

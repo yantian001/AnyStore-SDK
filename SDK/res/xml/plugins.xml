@@ -6,5 +6,7 @@
     <plugin name="MM" value="com.ckmobilling.MmSdk"/>
     <!-- 联动优势 -->
     <plugin name="HF" value="com.ckmobilling.HfSdk"/>
+	<!-- MDO -->
+    <plugin name="MDO" value="com.ckmobilling.MdoSdk"/>
 </plugins>
 
