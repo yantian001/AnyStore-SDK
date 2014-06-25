@@ -101,7 +101,7 @@ Update the AndroidManifest and make sure `android:name` was set. It should be th
 <application
 ...
 android:name=".App"
-...
+...>
 
 </application>
 ```
@@ -188,4 +188,4 @@ Example:
 
 #Support
 
-Any Questions? [We're here to help](mailto:support@chukong.com)
+Any Questions? [We're here to help](mailto:support@us.chukong-inc.com)
