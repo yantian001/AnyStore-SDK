@@ -1,3 +1,6 @@
+*.zip
+Readme.html
+
 build.xml
 .settings/
 
