@@ -96,7 +96,7 @@ public class App extends Application {
 	}
 }
 ```
-Update the AndroidManifest and make sure `android:name` was set. It should be the same as the class name on the last step. In this case we use `.App`
+Update the `AndroidManifest.xml` and make sure `android:name` was set. It should be the same as the class name on the last step. In this case we use `.App`
 ```xml
 <application
 ...
