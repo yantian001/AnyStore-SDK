@@ -9,6 +9,9 @@ Make sure you have the following item from AnyStore
 * **App Channel**
 * Submit your IAP items to AnyStore and get a list of **AnyStore Product IDs**
 
+###Requirements
+* Android 2.2 (API 8) and above
+
 ###Package contents
 
 **SDK**: AnyStore SDK integration files
