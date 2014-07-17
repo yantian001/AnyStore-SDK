@@ -5,8 +5,7 @@ AnyStore SDK Integration Guide
 ###Before you start
 Make sure you have the following item from AnyStore
 
-* **App ID**
-* **App Channel**
+* The latest AnyStore SDK
 * Submit your IAP items to AnyStore and get a list of **AnyStore Product IDs**
 
 ###Requirements
@@ -72,13 +71,6 @@ Reigister the following services and activities
         
         <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
 ```
-Add `app_id` and `app_channel` assgined by AnyStore
-
-```xml
-        <meta-data android:name="app_id" android:value="/ 2014" />
-        <meta-data android:name="app_channel" android:value="/ 23" />
-```
-
 ---
 
 ###3. Code Integration
