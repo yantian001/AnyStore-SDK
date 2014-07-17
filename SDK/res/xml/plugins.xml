@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugins>
     <!-- 游戏基地 -->
-    <plugin name="GB" value="com.ckmobilling.GbSdk"/>
+    <plugin name="GB" value="com.ckmobilling.GbSdk"  onload="true" />
     <!-- 移动MM -->
-    <plugin name="MM" value="com.ckmobilling.MmSdk"/>
+    <plugin name="MM" value="com.ckmobilling.MmSdk"  onload="false" />
     <!-- 联动优势 -->
-    <plugin name="HF" value="com.ckmobilling.HfSdk"/>
+    <plugin name="HF" value="com.ckmobilling.HfSdk" onload="false" />
 	<!-- MDO -->
-    <plugin name="MDO" value="com.ckmobilling.MdoSdk"/>
+    <plugin name="MDO" value="com.ckmobilling.MdoSdk" onload="false" />
 </plugins>
 
