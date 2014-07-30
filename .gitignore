@@ -17,6 +17,7 @@ build.xml
 # Generated files
 bin/
 gen/
+publish/
 
 # Gradle files
 .gradle/
