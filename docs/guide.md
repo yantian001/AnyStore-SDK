@@ -9,7 +9,7 @@ Make sure you have the following item from AnyStore
 * Submit your IAP items to AnyStore and get a list of **AnyStore Product IDs**
 
 ###Requirements
-* Android 2.2 (API 8) and above
+* Android 2.3 (API 10) and above
 
 ###Package contents
 
@@ -33,43 +33,193 @@ Copy everything under `SDK` folder to your porject folder
 Adding the following permission to AndroidManifest.xml
 
 ```xml
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" /> 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+    <uses-permission android:name="android.permission.SEND_SMS" /> 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> 
+    <uses-permission android:name="android.permission.GET_TASKS" />   
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="com.ut.permission.DEVICE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> 
+    <uses-permission android:name="com.alipay.mobile.command.trigger.permission" />   
+    <permission android:name="com.ut.permission.DEVICE_STATE" />
+    <permission android:name="com.alipay.mobile.command.trigger.permission" />
 ```
 
 Reigister the following services and activities
 
 ```xml
-        <service android:name="com.ckmobilling.CkService"
-		    android:exported="true"
-		    android:process=":remote" >
-            <intent-filter>
-                <action android:name="com.ckmobilling.ICkService" />
-            </intent-filter>
-        </service>
-        
-		<activity
-            android:name="com.ckmobilling.MdoPayActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true" >
-       	</activity>
-		
+        <activity
+            android:name="cn.egame.terminal.paysdk.EgamePayActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+        </activity>        
         <activity
             android:name="com.umpay.huafubao.ui.BillingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true" >
         </activity>
-        
-        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
+        <service android:name="com.umpay.huafubao.service.AppUpgradeService" /> 
+        <service android:name="com.ckmobilling.CkService"
+            android:process=":remote"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.ckmobilling.ICkService" />
+            </intent-filter>
+        </service>  
+        <activity
+            android:name="com.ck.android.app.upomp.CKUpompActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SplashActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.init.test" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.IndexActivityGroup"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.index.test" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.HomeActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.PayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AccountActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.BankCardInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SupportCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.UserProtocolActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AboutActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.ck.android.app.szf.ShenZhouFuActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity             android:name="com.shenzhoufu.android.mobilegamerechargemain.MobileGameRechargeMain"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.shenzhoufu.android.mobilegamerechargemain.MobileGameRechargeMain" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.shenzhoufu.android.mobilegamerechargeresult.MobileRecharging"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.shenzhoufu.android.mobilegamerechargeresult.BaseActivity"
+            android:screenOrientation="portrait" >
+        </activity> 
+        <activity
+            android:name="com.alipay.android.mini.window.sdk.MiniLaucherActivity"
+            android:configChanges="orientation"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/MspAppTheme" >
+            <intent-filter>
+                <action android:name="com.alipay.mobilepay.android" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.taobao.android.ski.NODERIVATION"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name="com.alipay.android.mini.window.sdk.TransContainer"
+            android:configChanges="orientation"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/MspAppTheme" >
+            <meta-data
+                android:name="com.taobao.android.ski.NODERIVATION"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name="com.alipay.android.mini.window.sdk.MiniPayActivity"
+            android:configChanges="orientation"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:label="@string/msp_app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/MspAppTheme"
+            android:windowSoftInputMode="adjustResize" >
+            <intent-filter android:priority="800" >
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.taobao.android.ski.NODERIVATION"
+                android:value="true" />
+        </activity>
+        <activity
+            android:name="com.alipay.android.mini.window.sdk.MiniWebActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/MspAppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.taobao.android.ski.NODERIVATION"
+                android:value="true" />
+        </activity>
+        <service android:name="com.alipay.android.app.MspService" />
+        <receiver
+            android:name="com.ut.device.BQueryWhoHasOne"
+            android:exported="true"
+            android:permission="com.ut.permission.DEVICE_STATE" >
+            <intent-filter>
+                <action android:name="UT.QueryWhoHasOne" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.ut.device.BFoundIt"
+            android:exported="true"
+            android:permission="com.ut.permission.DEVICE_STATE" >
+            <intent-filter>
+                <action android:name="UT.FoundIT" />
+            </intent-filter>
+        </receiver>
+
 ```
 ---
 
@@ -171,6 +321,15 @@ CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback(
 ```
 ###Receive payment result
 The `PaymentResult` returns from the callback will contain the `PayCode` indicating which item is associated with the payment
+
+As well as other info about the product
+```
+getItemName()
+getItemNumber()
+getItemPrice()
+getPayResult()
+getPayCode()
+```
 
 Example:
 ```java
