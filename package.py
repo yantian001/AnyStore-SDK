@@ -28,9 +28,11 @@ def copyanything(src, dst):
 
 def main():
 	from optparse import OptionParser
-	parser = OptionParser()
+	parser = OptionParser(usage='usage: %prog -v 1.0')
 	parser.add_option('-v', '--version',dest='version', help="Version number for the SDK")
 	opts, args = parser.parse_args()
+	if not opts.version:
+		parser.error('please specify version with -v')
 
 	if opts.version:
 		version = opts.version
@@ -49,7 +51,8 @@ def main():
 	outDocPath = publishDir + '/Readme.html'
 
 	print(publishDir)
-	shutil.rmtree(publishDir)
+	if os.path.exists(publishDir):
+		shutil.rmtree(publishDir)
 	os.makedirs(publishDir)
 	print
 
