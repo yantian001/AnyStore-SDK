@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugins>
+    <!-- 模拟支付sdk -->
+    <plugin name="DEBUG" value="DebugSdk" />
     <!-- 游戏基地 -->
-    <plugin name="GB" value="com.ckmobilling.GbSdk"  onload="true" />
+    <plugin name="GB" value="GbSdk" onload="true" default="true"/>
     <!-- 移动MM -->
-    <plugin name="MM" value="com.ckmobilling.MmSdk"  onload="false" />
+    <plugin name="MM" value="MmSdk" />
     <!-- 联动优势 -->
-    <plugin name="HF" value="com.ckmobilling.HfSdk" onload="false" />
-	<!-- MDO -->
-    <plugin name="MDO" value="com.ckmobilling.MdoSdk" onload="false" />
+    <plugin name="HF" value="HfSdk" />
+    <!-- MDO -->
+    <plugin name="MDO" value="MdoSdk" />
+    <!-- UNIPAY 中国联通 -->
+    <!-- plugin name="UNIPAY_WEB" value="UniSdk" onload="true" /-->
+    <!-- UNIPAY 中国联通短代 -->
+    <plugin name="UNIPAY_SMS" value="UniSmsSdk" default="true" />
+    <!-- EGAME 中国电信 -->
+    <plugin name="EGAME" value="EgameSdk" />
+    <!-- 三方支付 -->
+    <plugin name="PB" value="PBSdk" />
 </plugins>
 

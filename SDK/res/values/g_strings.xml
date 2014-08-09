@@ -2,4 +2,5 @@
 <resources>
 	<!-- Class name of game entry -->
     <string name="g_class_name">cn.cmgame.sdk.example.BillingDemo</string>
+    <string name="gc_billing_islow_version">true</string>
 </resources>
