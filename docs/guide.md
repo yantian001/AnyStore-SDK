@@ -341,6 +341,13 @@ Example:
 ```
 
 ---
+#TroubleShooting
+
+1. android content is not allowed in prolog
+
+ Just select those errors in eclipse and delete them
+
+---
 
 #Support
 
