@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.play.egamesmsoffline"
+    package="com.chukong.anystore"
     android:versionCode="1"
     android:versionName="1.0" >   
     
-    <!-- 添加用户权限 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 游戏基地 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 游戏基地 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 游戏基地 -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 获取网络时间 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 获取网络时间 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 游戏基地 && MM -->
-    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- 游戏基地 && MM -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 游戏基地 && MM -->
-    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 游戏基地 -->
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 联动优势 && MM -->
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="10"/>
+    
+    <!-- Add user permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    
-   
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="com.ut.permission.DEVICE_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 联通 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="com.alipay.mobile.command.trigger.permission" />   
     <permission android:name="com.ut.permission.DEVICE_STATE" />
     <permission android:name="com.alipay.mobile.command.trigger.permission" />
 
     <application
         android:allowBackup="true"
-         android:name="cn.play.egamesmsoffline.App"
+         android:name="com.chukong.anystore.App"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cn.play.egamesmsoffline.MainActivity"
+            android:name="com.chukong.anystore.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,22 +45,8 @@
             </intent-filter>
         </activity>
         
-        <activity
-            android:name="cn.egame.terminal.paysdk.EgamePayActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
-        </activity>
+        <!-- Add activities and services -->
         
-         <!-- 添加话付宝支付服务 -->
-        <activity
-            android:name="com.umpay.huafubao.ui.BillingActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true" >
-        </activity>
-
-        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
-        <!-- 添加话付宝支付服务完毕 -->
-        
-        <!-- 注册ckservice -->
         <service android:name="com.ckmobilling.CkService"
             android:process=":remote"
             android:exported="true">
@@ -69,7 +55,19 @@
             </intent-filter>
         </service>
         
-        <!-- PunchBoxUcSDK -->
+        <activity
+            android:name="cn.egame.terminal.paysdk.EgamePayActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+        </activity>
+        
+        <activity
+            android:name="com.umpay.huafubao.ui.BillingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true" >
+        </activity>
+
+        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
+        
         <activity
             android:name="com.ck.android.app.upomp.CKUpompActivity"
             android:screenOrientation="portrait"
@@ -226,7 +224,7 @@
                 <action android:name="UT.FoundIT" />
             </intent-filter>
         </receiver>
-        <!-- PunchBoxUcSDK -->
+        <!-- End of activities and services -->
     </application>
 
 </manifest>

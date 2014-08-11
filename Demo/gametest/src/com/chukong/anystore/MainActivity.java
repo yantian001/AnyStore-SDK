@@ -1,4 +1,4 @@
-package cn.play.egamesmsoffline;
+package com.chukong.anystore;
 
 import com.ckmobilling.CkSdkApi;
 import com.ckmobilling.payment.PaymentCallback;
@@ -50,57 +50,29 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 			@Override
 			public void payCanceled(PaymentResult result) {
-				String name = result.getItemName();
-				String number = result.getItemNumber();
-				/* 目前计价单价为分*/				 
-				String price = result.getItemPrice() + "分";
-				String paycode = result.getPayCode();
-				int pay_result = result.getPayResult();
-				StringBuilder builder = new StringBuilder();
-				builder.append("name: "+ name + "\n");
-				builder.append("number: "+ number + "\n");
-				builder.append("price: "+ price + "\n");
-				builder.append("paycode: "+ paycode + "\n");
-				builder.append("pay_result: "+ pay_result + "\n");
-				
-				Message msg = handler.obtainMessage();
-				String strPayResult = builder.toString();
-				msg.obj = strPayResult;
-				handler.sendMessage(msg);				
+				printResult("Payment Canceled\n", result);				
 			}
 
 			@Override
 			public void payFailed(PaymentResult result) {
-				String name = result.getItemName();
-				String number = result.getItemNumber();
-				/* 目前计价单价为分*/				 
-				String price = result.getItemPrice() + "分";
-				String paycode = result.getPayCode();
-				int pay_result = result.getPayResult();
-				String resean = result.getReason();
-				StringBuilder builder = new StringBuilder();
-				builder.append("name: "+ name + "\n");
-				builder.append("number: "+ number + "\n");
-				builder.append("price: "+ price + "\n");
-				builder.append("paycode: "+ paycode + "\n");
-				builder.append("pay_result: "+ pay_result + "\n");
-				builder.append("resean" + resean + "\n");
-				
-				Message msg = handler.obtainMessage();
-				String strPayResult = builder.toString();
-				msg.obj = strPayResult;
-				handler.sendMessage(msg);
+				printResult("Payment Failed\n", result);
 			}
 
 			@Override
 			public void paySuccess(PaymentResult result) {
+				
+				printResult("Payment Success\n", result);
+			}
+			
+			private void printResult(String t, PaymentResult result) {
+				StringBuilder builder = new StringBuilder(t);
+				
 				String name = result.getItemName();
-				String number = result.getItemNumber();
-				/* 目前计价单价为分*/				 
-				String price = result.getItemPrice() + "分";
+				String number = result.getItemNumber();				 
+				String price = result.getItemPrice();
 				String paycode = result.getPayCode();
 				int pay_result = result.getPayResult();
-				StringBuilder builder = new StringBuilder();
+				
 				builder.append("name: "+ name + "\n");
 				builder.append("number: "+ number + "\n");
 				builder.append("price: "+ price + "\n");
@@ -112,7 +84,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
 				msg.obj = strPayResult;
 				handler.sendMessage(msg);
 			}
-			
 			
 		});
 	}

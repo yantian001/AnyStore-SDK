@@ -1,4 +1,4 @@
-package cn.play.egamesmsoffline;
+package com.chukong.anystore;
 
 import com.ckmobilling.CkSdkApi;
 
