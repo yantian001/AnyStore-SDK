@@ -39,21 +39,24 @@ def main():
 
 
 	pubDir = '/publish'
+	binDir = '/publish/bin'
 	demoDir = '/Demo'
 	sdkDir = '/SDK'
 	archiveName = '/AnyStore_SDK'
 
 	print('==> creating publish folder')
 	currDir = os.getcwd()
-	publishDir = currDir + pubDir
+	publishPath = currDir + pubDir
+	binPath = currDir + binDir
 
 	docPath = currDir + '/docs/guide.md'
-	outDocPath = publishDir + '/Readme.html'
+	outDocPath = binPath + '/Readme.html'
 
-	print(publishDir)
-	if os.path.exists(publishDir):
-		shutil.rmtree(publishDir)
-	os.makedirs(publishDir)
+	print(publishPath)
+	if os.path.exists(publishPath):
+		shutil.rmtree(publishPath)
+	os.makedirs(publishPath)
+	os.makedirs(binPath)
 	print
 
 	print('==> generating documentation form markdown')
@@ -62,12 +65,12 @@ def main():
 	print
 
 	print('==> copy resources to publish folder')
-	copyanything(currDir + sdkDir, publishDir + sdkDir)
-	copyanything(currDir + demoDir, publishDir + demoDir)
+	copyanything(currDir + sdkDir, binPath + sdkDir)
+	copyanything(currDir + demoDir, binPath + demoDir)
 	print
 
 	print('==> create archive')
-	zip(publishDir, publishDir + archiveName + version)
+	zip(binPath, publishPath + archiveName + version)
 	print
 
 # ---------- main -------------
