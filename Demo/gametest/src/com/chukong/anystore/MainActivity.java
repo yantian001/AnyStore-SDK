@@ -45,7 +45,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
+		//Get the paycode(Product ID)
 		String paycode = mET.getEditableText().toString();
+		
+		//Start payment
 		CkSdkApi.getInstance().doPayment(MainActivity.this, paycode, new PaymentCallback() {			
 
 			@Override
