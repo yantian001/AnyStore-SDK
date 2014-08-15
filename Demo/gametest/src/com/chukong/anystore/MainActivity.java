@@ -1,34 +1,25 @@
 package com.chukong.anystore;
 
-import com.ckmobilling.CkSdkApi;
-import com.ckmobilling.payment.PaymentCallback;
-import com.ckmobilling.payment.PaymentResult;
+import java.util.ArrayList;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.ckmobilling.CkItemInfo;
+import com.ckmobilling.CkSdkApi;
+import com.ckmobilling.payment.PaymentCallback;
+import com.ckmobilling.payment.PaymentResult;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 	
 	private EditText mET;
 	private TextView mResult;
-	
-	private Handler handler = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			mResult.setText((String) msg.obj);
-		}
-		
-	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +32,30 @@ public class MainActivity extends Activity implements View.OnClickListener{
 		
 		Button btn = (Button) findViewById(R.id.btn);
 		btn.setOnClickListener(this);
+		
+		Button btnList = (Button) findViewById(R.id.btn_ListIAP);
+		btnList.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				ArrayList<CkItemInfo> products = CkSdkApi.getInstance().getItemList(MainActivity.this);
+				
+				showProducts(products);
+			}
+
+			private void showProducts(ArrayList<CkItemInfo> products) {
+				String msg = "";
+				
+				for(CkItemInfo p : products){
+					msg += "  id:" + p.getPayCode();
+					msg += "  Name:" + p.getItemName();
+					msg += "  Price:" + p.getItemPrice();
+					msg += "\n";
+				}
+				
+				mResult.setText(msg);
+			}
+		});
 	}
 	
 	@Override
@@ -82,10 +97,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 				builder.append("paycode: "+ paycode + "\n");
 				builder.append("pay_result: "+ pay_result + "\n");
 				
-				Message msg = handler.obtainMessage();
-				String strPayResult = builder.toString();
-				msg.obj = strPayResult;
-				handler.sendMessage(msg);
+				mResult.setText(builder.toString());
 			}
 			
 		});
