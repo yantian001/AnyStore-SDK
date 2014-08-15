@@ -288,6 +288,18 @@ protected void onDestroy() {
 ---
 #Usage
 
+###Get Product List
+```Java
+public ArrayList<CkItemInfo> getItemList(Context context)
+```
+**context** is the context of the activity
+
+**CkItemInfo** contains following data
+* getPayCode()   `the product id`
+* getItemName() `Name of the product`
+* getItemPrice()`Price of the product`
+* getItemCount()
+
 ###Send payment request
 Use `CkSdkApi.getInstance().doPayment` to send payment request
 
