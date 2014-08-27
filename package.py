@@ -44,6 +44,11 @@ def main():
 	sdkDir = '/SDK'
 	archiveName = '/AnyStore_SDK'
 
+	print('==> Clean up git repo')
+	from subprocess import call
+	call("git clean -dxf", shell=True)
+	print
+
 	print('==> creating publish folder')
 	currDir = os.getcwd()
 	publishPath = currDir + pubDir
