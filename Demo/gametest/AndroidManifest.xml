@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chukong.anystore"
     android:versionCode="1"
-    android:versionName="1.0" >   
-    
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="10"/>
-    
-    <!-- Add user permissions -->
+    android:versionName="1.5" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="18" />
+
+    <!-- permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -30,44 +32,147 @@
     <permission android:name="com.alipay.mobile.command.trigger.permission" />
 
     <application
+        android:name="com.chukong.anystore.App"
         android:allowBackup="true"
-         android:name="com.chukong.anystore.App"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name" >
         <activity
             android:name="com.chukong.anystore.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <!-- Add activities and services -->
-        
-        <service android:name="com.ckmobilling.CkService"
-            android:process=":remote"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.ckmobilling.ICkService" />
-            </intent-filter>
-        </service>
-        
+
+        <activity android:name="com.cocospay.CocosPaySplashActivity" />
+        <!-- Splash Screen -->
         <activity
-            android:name="cn.egame.terminal.paysdk.EgamePayActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
+            android:name="cn.cmgame.billing.ui.GameOpenActivity"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.CHINAMOBILE_OMS_GAME" />
+                <category android:name="android.intent.category.CHINAMOBILE_GAMES" />
+            </intent-filter>
         </activity>
-        
+
         <activity
             android:name="com.umpay.huafubao.ui.BillingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true" >
         </activity>
+        
+        <service
+            android:name="mm.purchasesdk.iapservice.PurchaseService"
+            android:exported="true" >
+
+            <!-- android:process="mm.iapServices" > -->
+            <intent-filter android:priority="300" >
+                <action android:name="com.aspire.purchaseservice.BIND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:priority="300" >
+                <action android:name="com.chukong.anystore.purchaseservice.BIND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>            
+            <intent-filter android:priority="300" >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAFIAP.COMPONENT" >
+                </category>
+            </intent-filter>
+        </service>
+        <!-- android:excludeFromRecents="true" -->
+        <!-- android:launchMode="singleInstance" -->
+        <activity
+            android:name="mm.purchasesdk.iapservice.BillingLayoutActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent" >
+            <intent-filter android:priority="300" >
+                <action android:name="com.chukong.anystore.com.mmiap.activity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- android:process="safiap.framework.safframeworkmanager" begin -->
+        <service
+            android:name="safiap.framework.SafFrameworkManager"
+            android:exported="true"
+            android:process="safiap.framework" >
+            <intent-filter android:priority="630" >
+
+                <!-- ID for services declared in AIDL -->
+                <action android:name="safiap.framework.sdk.ISAFFramework" />
+            </intent-filter>
+            <intent-filter android:priority="630" >
+
+                <!-- ID for services declared in AIDL -->
+                <action android:name="safiap.framework.ACTION_START_DOWNLOAD" />
+            </intent-filter>
+            <intent-filter android:priority="630" >
+
+                <!-- ID for services declared in AIDL -->
+                <action android:name="safiap.framework.ACTION_CHECK_UPDATE" />
+            </intent-filter>
+        </service>
+        <!-- receivers -->
+        <receiver android:name="safiap.framework.CheckUpdateReceiver" >
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_CANCEL_NOTIFICATION" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.GET_SHARED_DATA" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_SET_TIMER" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="safiap.framework.ui.UpdateHintActivity"
+            android:configChanges="orientation"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_TO_INSTALL" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_TO_INSTALL_IAP" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_NETWORK_ERROR_IAP" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_NETWORK_ERROR_FRAMEWORK" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="safiap.framework.logreport.monitor.handler.LogreportHandler"
+            android:process=":remote" />
+        <!-- android:process="safiap.framework.safframeworkmanager" end -->
 
         <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
         
+        <!-- ckservice -->
+        <service android:name="com.cocospay.CocosPayService"
+            android:process=":remote"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.cocospay.ICocosPayService" />
+            </intent-filter>
+        </service>
+
+        <!-- AnyStoreSDK -->
+        <activity
+            android:name="cn.egame.terminal.paysdk.EgamePayActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden" >
+        </activity>
         <activity
             android:name="com.ck.android.app.upomp.CKUpompActivity"
             android:screenOrientation="portrait"
@@ -140,7 +245,7 @@
             android:name="com.shenzhoufu.android.mobilegamerechargeresult.BaseActivity"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <activity
             android:name="com.alipay.android.mini.window.sdk.MiniLaucherActivity"
             android:configChanges="orientation"
@@ -200,7 +305,6 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
             <meta-data
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
@@ -224,7 +328,7 @@
                 <action android:name="UT.FoundIT" />
             </intent-filter>
         </receiver>
-        <!-- End of activities and services -->
+        <!-- AnyStoreSDK -->
     </application>
 
 </manifest>

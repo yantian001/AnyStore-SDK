@@ -1,118 +1,172 @@
 package com.chukong.anystore;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ckmobilling.CkItemInfo;
-import com.ckmobilling.CkSdkApi;
-import com.ckmobilling.payment.PaymentCallback;
-import com.ckmobilling.payment.PaymentResult;
+import com.cocospay.CocosPayApi;
+import com.cocospay.LogTag;
+import com.cocospay.PayItemInfo;
+import com.cocospay.payment.ExitCallback;
+import com.cocospay.payment.PaymentCallback;
+import com.cocospay.payment.PaymentResult;
 
-public class MainActivity extends Activity implements View.OnClickListener{
-	
-	private EditText mET;
-	private TextView mResult;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		
-		CkSdkApi.getInstance().initialize(MainActivity.this);
-		mET = (EditText)findViewById(R.id.input);
-		mResult = (TextView)findViewById(R.id.result);
-		
-		Button btn = (Button) findViewById(R.id.btn);
-		btn.setOnClickListener(this);
-		
-		Button btnList = (Button) findViewById(R.id.btn_ListIAP);
-		btnList.setOnClickListener(new OnClickListener(){
+public class MainActivity extends Activity {
+    private TextView text;
 
-			@Override
-			public void onClick(View v) {
-				ArrayList<CkItemInfo> products = CkSdkApi.getInstance().getItemList(MainActivity.this);
-				
-				showProducts(products);
-			}
+    private final Handler handler = new Handler() {
 
-			private void showProducts(ArrayList<CkItemInfo> products) {
-				String msg = "";
-				
-				for(CkItemInfo p : products){
-					msg += "  id:" + p.getPayCode();
-					msg += "  Name:" + p.getItemName();
-					msg += "  Price:" + p.getItemPrice();
-					msg += "\n";
-				}
-				
-				mResult.setText(msg);
-			}
-		});
-	}
-	
-	@Override
-	public void onClick(View v) {
-		//Get the paycode(Product ID)
-		String paycode = mET.getEditableText().toString();
-		
-		//Start payment
-		CkSdkApi.getInstance().doPayment(MainActivity.this, paycode, new PaymentCallback() {			
+        @Override
+        public void handleMessage(Message msg) {
+            text.setText((String) msg.obj);
+        }
 
-			@Override
-			public void payCanceled(PaymentResult result) {
-				printResult("Payment Canceled\n", result);				
-			}
+    };
 
-			@Override
-			public void payFailed(PaymentResult result) {
-				printResult("Payment Failed\n", result);
-			}
+    private final static class ViewHolder {
+        TextView itemCodeLabel;
+        TextView itemNameLabel;
+        TextView itemPriceLabel;
+    }
 
-			@Override
-			public void paySuccess(PaymentResult result) {
-				
-				printResult("Payment Success\n", result);
-			}
-			
-			private void printResult(String t, PaymentResult result) {
-				StringBuilder builder = new StringBuilder(t);
-				
-				String name = result.getItemName();
-				String number = result.getItemNumber();				 
-				String price = result.getItemPrice();
-				String paycode = result.getPayCode();
-				int pay_result = result.getPayResult();
-				
-				builder.append("name: "+ name + "\n");
-				builder.append("number: "+ number + "\n");
-				builder.append("price: "+ price + "\n");
-				builder.append("paycode: "+ paycode + "\n");
-				builder.append("pay_result: "+ pay_result + "\n");
-				
-				mResult.setText(builder.toString());
-			}
-			
-		});
-	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		CkSdkApi.getInstance().onActivityResult(requestCode, resultCode, data);
-	}
+    class ItemAdapter extends ArrayAdapter<PayItemInfo> {
+        private final LayoutInflater mInflater;
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		CkSdkApi.getInstance().onDestroy();
-	}
+        public ItemAdapter(Context context, List<PayItemInfo> itemList) {
+            super(context, 0, itemList);
+            mInflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = convertView;
+            if (view == null) {
+                view = mInflater.inflate(R.layout.item_view, parent, false);
+            }
+            bindView(position, view, getItem(position));
+            return view;
+        }
+
+        private void bindView(int position, View view, PayItemInfo item) {
+            ViewHolder holder = new ViewHolder();
+            holder.itemCodeLabel = (TextView) view
+                    .findViewById(R.id.item_code_label);
+            holder.itemNameLabel = (TextView) view
+                    .findViewById(R.id.item_name_label);
+            holder.itemPriceLabel = (TextView) view
+                    .findViewById(R.id.item_price_label);
+            view.setTag(holder);
+
+            holder.itemCodeLabel.setText(getItem(position).getPayCode());
+            holder.itemNameLabel.setText(getItem(position).getItemName());
+            NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.CHINA);
+            holder.itemPriceLabel.setText(nf.format(Double.valueOf(getItem(
+                    position).getItemPrice()) / 100));
+        }
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (CocosPayApi.getInstance().showSplashScreen(this, getIntent())) {
+            return;
+        }
+
+        // CocosPayApi.getInstance().setDebugMode(true);
+        CocosPayApi.getInstance().initialize(this);
+
+        final ArrayList<PayItemInfo> list = CocosPayApi.getInstance()
+                .getItemList(this);
+
+        setContentView(R.layout.activity_main);
+
+        text = (TextView) findViewById(R.id.info_label);
+        TextView channelText = (TextView) findViewById(R.id.channel_label);
+        channelText.setText("Channel Id: " + CocosPayApi.getInstance().getChannelId(this));
+
+        ListView listView = (ListView) findViewById(R.id.item_list);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                CocosPayApi.getInstance().doPayment(MainActivity.this,
+                        list.get(position).getPayCode(), new PaymentCallback() {
+
+                            @Override
+                            public void paySuccess(PaymentResult result) {
+                                Message msg = handler.obtainMessage();
+                                String strPayResult = "Pay Success.   ";
+                                msg.obj = strPayResult;
+                                handler.sendMessage(msg);
+                            }
+
+                            @Override
+                            public void payFailed(PaymentResult result) {
+                                Message msg = handler.obtainMessage();
+                                String strPayResult = "Pay Failed.   ";
+                                msg.obj = strPayResult;
+                                handler.sendMessage(msg);
+                            }
+
+                            @Override
+                            public void payCanceled(PaymentResult result) {
+                                Message msg = handler.obtainMessage();
+                                String strPayResult = "Pay Canceled.  ";
+                                msg.obj = strPayResult;
+                                handler.sendMessage(msg);
+                            }
+                        });
+            }
+        });
+        listView.setAdapter(new ItemAdapter(this, list));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        CocosPayApi.getInstance().onActivityResult(requestCode, resultCode,
+                data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        CocosPayApi.getInstance().exit(this, new ExitCallback() {
+            @Override
+            public void onConfirm() {
+                LogTag.error("onConfirm()");
+                finish();
+            }
+
+            @Override
+            public void onCancel() {
+                LogTag.error("onCancel()");
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        CocosPayApi.getInstance().onDestroy();
+    }
 
 }

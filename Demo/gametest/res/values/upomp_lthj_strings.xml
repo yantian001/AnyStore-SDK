@@ -2,9 +2,6 @@
 <resources>
 
     <string name="hello">Hello World!</string>
-    <!-- 
-    <string name="app_name">Unipay_Plugin_v1.1</string>
-     -->
     <string name="upomp_lthj_company">中国银联股份有限公司版权所有</string>
     <string name="upomp_lthj_version_hint">版本号</string>
     <string name="upomp_lthj_version">1.1.0</string>
