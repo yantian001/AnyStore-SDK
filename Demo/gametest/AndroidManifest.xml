@@ -44,9 +44,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.cocospay.CocosPaySplashActivity" />
+        
+        <!-- AnyStoreSDK Start -->
         <!-- Splash Screen -->
+        <activity android:name="com.cocospay.CocosPaySplashActivity" />
+        
         <activity
             android:name="cn.cmgame.billing.ui.GameOpenActivity"
             android:screenOrientation="sensor"
@@ -168,7 +170,6 @@
             </intent-filter>
         </service>
 
-        <!-- AnyStoreSDK -->
         <activity
             android:name="cn.egame.terminal.paysdk.EgamePayActivity"
             android:configChanges="orientation|keyboard|keyboardHidden" >
@@ -328,7 +329,7 @@
                 <action android:name="UT.FoundIT" />
             </intent-filter>
         </receiver>
-        <!-- AnyStoreSDK -->
+        <!-- AnyStoreSDK End-->
     </application>
 
 </manifest>

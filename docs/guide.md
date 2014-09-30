@@ -33,49 +33,161 @@ Copy everything under `SDK` folder to your porject folder
 Adding the following permission to AndroidManifest.xml
 
 ```xml
-    <uses-permission android:name="android.permission.INTERNET" /> 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
-    <uses-permission android:name="android.permission.SEND_SMS" /> 
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> 
-    <uses-permission android:name="android.permission.GET_TASKS" />   
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="com.ut.permission.DEVICE_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> 
-    <uses-permission android:name="com.alipay.mobile.command.trigger.permission" />   
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="com.alipay.mobile.command.trigger.permission" />
     <permission android:name="com.ut.permission.DEVICE_STATE" />
     <permission android:name="com.alipay.mobile.command.trigger.permission" />
+
 ```
 
 Reigister the following services and activities
 
 ```xml
+        <!-- AnyStoreSDK Start -->
+        <!-- Splash Screen -->
+        <activity android:name="com.cocospay.CocosPaySplashActivity" />
+
         <activity
-            android:name="cn.egame.terminal.paysdk.EgamePayActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
-        </activity>        
+            android:name="cn.cmgame.billing.ui.GameOpenActivity"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.CHINAMOBILE_OMS_GAME" />
+                <category android:name="android.intent.category.CHINAMOBILE_GAMES" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.umpay.huafubao.ui.BillingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:excludeFromRecents="true" >
         </activity>
-        <service android:name="com.umpay.huafubao.service.AppUpgradeService" /> 
-        <service android:name="com.ckmobilling.CkService"
+
+        <service
+            android:name="mm.purchasesdk.iapservice.PurchaseService"
+            android:exported="true" >
+
+            <!-- android:process="mm.iapServices" > -->
+            <intent-filter android:priority="300" >
+                <action android:name="com.aspire.purchaseservice.BIND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:priority="300" >
+                <action android:name="your.package.name.purchaseservice.BIND" /> <!-- Replace Package Name Here -->
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter android:priority="300" >
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAFIAP.COMPONENT" >
+                </category>
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="mm.purchasesdk.iapservice.BillingLayoutActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.Translucent" >
+            <intent-filter android:priority="300" >
+                <action android:name="your.package.name.com.mmiap.activity" /> <!-- Replace Package Name Here -->
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- android:process="safiap.framework.safframeworkmanager" begin -->
+        <service
+            android:name="safiap.framework.SafFrameworkManager"
+            android:exported="true"
+            android:process="safiap.framework" >
+            <intent-filter android:priority="630" >
+
+                <!-- ID for services declared in AIDL -->
+                <action android:name="safiap.framework.sdk.ISAFFramework" />
+            </intent-filter>
+            <intent-filter android:priority="630" >
+
+                <!-- ID for services declared in AIDL -->
+                <action android:name="safiap.framework.ACTION_START_DOWNLOAD" />
+            </intent-filter>
+            <intent-filter android:priority="630" >
+
+                <!-- ID for services declared in AIDL -->
+                <action android:name="safiap.framework.ACTION_CHECK_UPDATE" />
+            </intent-filter>
+        </service>
+        <!-- receivers -->
+        <receiver android:name="safiap.framework.CheckUpdateReceiver" >
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_CANCEL_NOTIFICATION" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.GET_SHARED_DATA" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_SET_TIMER" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="safiap.framework.ui.UpdateHintActivity"
+            android:configChanges="orientation"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_TO_INSTALL" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_TO_INSTALL_IAP" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_NETWORK_ERROR_IAP" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="safiap.framework.ACTION_NETWORK_ERROR_FRAMEWORK" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="safiap.framework.logreport.monitor.handler.LogreportHandler"
+            android:process=":remote" />
+        <!-- android:process="safiap.framework.safframeworkmanager" end -->
+
+        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
+
+        <!-- ckservice -->
+        <service android:name="com.cocospay.CocosPayService"
             android:process=":remote"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.ckmobilling.ICkService" />
+                <action android:name="com.cocospay.ICocosPayService" />
             </intent-filter>
-        </service>  
+        </service>
+
+        <activity
+            android:name="cn.egame.terminal.paysdk.EgamePayActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden" >
+        </activity>
         <activity
             android:name="com.ck.android.app.upomp.CKUpompActivity"
             android:screenOrientation="portrait"
@@ -86,6 +198,7 @@ Reigister the following services and activities
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="com.unionpay.upomp.lthj.android.plugin.init.test" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -94,6 +207,7 @@ Reigister the following services and activities
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="com.unionpay.upomp.lthj.android.plugin.index.test" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -129,10 +243,12 @@ Reigister the following services and activities
             android:name="com.ck.android.app.szf.ShenZhouFuActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <activity             android:name="com.shenzhoufu.android.mobilegamerechargemain.MobileGameRechargeMain"
+        <activity
+            android:name="com.shenzhoufu.android.mobilegamerechargemain.MobileGameRechargeMain"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="com.shenzhoufu.android.mobilegamerechargemain.MobileGameRechargeMain" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -143,7 +259,8 @@ Reigister the following services and activities
         <activity
             android:name="com.shenzhoufu.android.mobilegamerechargeresult.BaseActivity"
             android:screenOrientation="portrait" >
-        </activity> 
+        </activity>
+
         <activity
             android:name="com.alipay.android.mini.window.sdk.MiniLaucherActivity"
             android:configChanges="orientation"
@@ -153,8 +270,10 @@ Reigister the following services and activities
             android:theme="@style/MspAppTheme" >
             <intent-filter>
                 <action android:name="com.alipay.mobilepay.android" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
@@ -181,8 +300,10 @@ Reigister the following services and activities
             android:windowSoftInputMode="adjustResize" >
             <intent-filter android:priority="800" >
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
@@ -196,13 +317,16 @@ Reigister the following services and activities
             android:theme="@style/MspAppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
         </activity>
+
         <service android:name="com.alipay.android.app.MspService" />
+
         <receiver
             android:name="com.ut.device.BQueryWhoHasOne"
             android:exported="true"
@@ -219,25 +343,33 @@ Reigister the following services and activities
                 <action android:name="UT.FoundIT" />
             </intent-filter>
         </receiver>
+        <!-- AnyStoreSDK End-->
 
 ```
 ---
+###3. Update Package Name
+Search and replace `your.package.name` with the package name of your app.
+>We also marked the line with `<!-- Replace Package Name Here -->`
 
-###3. Code Integration
+open `res/values/g_strings.xml` file and replace the `g_class_name` with your `MainActivity` name with package
+>for example `com.chukong.anystore.MainActivity`
+
+---
+###4. Code Integration
 
 Create a `Application` class if you don't already have one, and add the following line to it
 
 ```java
-import com.ckmobilling.CkSdkApi;
+import com.ckmobilling.CocosPayApi;
 import android.app.Application;
 
 public class App extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-        
+
         //Load AnyStore API
-		CkSdkApi.getInstance().loadLibrary(this);
+		CocosPayApi.getInstance().loadLibrary(this);
 	}
 }
 ```
@@ -256,31 +388,48 @@ Update the `AndroidManifest.xml` and make sure `android:name` under `application
 Add the folloing line to your `Activity` Class
 
 ```java
-import com.ckmobilling.CkSdkApi;
+import com.ckmobilling.CocosPayApi;
 import com.ckmobilling.PaymentCallback;
 import com.ckmobilling.PaymentResult;
 
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-    
+	
+	if (CocosPayApi.getInstance().showSplashScreen(this, getIntent())) {
+		return;	}
+   
     //Initialize
-	CkSdkApi.getInstance().initialize(this);
+	CocosPayApi.getInstance().initialize(this);
 }
 
 @Override
 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	super.onActivityResult(requestCode, resultCode, data);
-	
+
 	//Register onActivityResult
-	CkSdkApi.getInstance().onActivityResult(requestCode, resultCode, data);
+	CocosPayApi.getInstance().onActivityResult(requestCode, resultCode, data);
+}
+
+@Override
+public void onBackPressed() {
+	CocosPayApi.getInstance().exit(this, new ExitCallback() {
+		@Override
+		public void onConfirm() {
+			finish();
+		}
+
+		@Override
+		public void onCancel() {
+		}
+	});
 }
 
 @Override
 protected void onDestroy() {
 	super.onDestroy();
-	
+
 	//Clean up
-	CkSdkApi.getInstance().onDestroy();
+	CocosPayApi.getInstance().onDestroy();
 }
 
 ```
@@ -290,18 +439,18 @@ protected void onDestroy() {
 
 ###Get Product List
 ```Java
-public ArrayList<CkItemInfo> getItemList(Context context)
+public ArrayList<PayItemInfo> getItemList(Context context)
 ```
 **context** is the context of the activity
 
-**CkItemInfo** contains following data
+**PayItemInfo** contains following data
 * getPayCode()   `the product id`
 * getItemName() `Name of the product`
 * getItemPrice()`Price of the product`
 * getItemCount()
 
 ###Send payment request
-Use `CkSdkApi.getInstance().doPayment` to send payment request
+Use `CocosPayApi.getInstance().doPayment` to send payment request
 
 ```java
 public void doPayment(Context context, String productID, PaymentCallback callback);
@@ -315,7 +464,7 @@ Callback: The callback for this transaction
 
 Example:
 ```java
-CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback() {
+CocosPayApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback() {
 
 	@Override
 	public void paySuccess(PaymentResult result) {
@@ -328,7 +477,7 @@ CkSdkApi.getInstance().doPayment(MainActivity.this, "0007", new PaymentCallback(
 	@Override
 	public void payCanceled(PaymentResult result) {
 	}
-	
+
 });
 ```
 ###Receive payment result
@@ -346,7 +495,7 @@ getPayCode()
 Example:
 ```java
 	public void paySuccess(PaymentResult result) {
-		if(result.payCode.equals(mItemCode)){
+		if(result.getPayCode().equals(mItemCode)){
 			System.out.println("Success!");
 		}
 	}
