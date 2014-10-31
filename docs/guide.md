@@ -51,64 +51,66 @@ Adding the following permission to AndroidManifest.xml
     <uses-permission android:name="android.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="com.alipay.mobile.command.trigger.permission" />
-    <permission android:name="com.ut.permission.DEVICE_STATE" />
     <permission android:name="com.alipay.mobile.command.trigger.permission" />
-
+    <permission android:name="com.ut.permission.DEVICE_STATE" />
 ```
 
 Reigister the following services and activities
 
 ```xml
         <!-- AnyStoreSDK Start -->
-        <!-- Splash Screen -->
-        <activity android:name="com.cocospay.CocosPaySplashActivity" />
+        <service
+            android:name="com.cocospay.CocosPayService"
+            android:exported="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.cocospay.ICocosPayService" />
+            </intent-filter>
+        </service>
 
+        <activity android:name="com.cocospay.CocosPaySplashActivity" />
         <activity
-            android:name="cn.cmgame.billing.ui.GameOpenActivity"
+            android:name="cn.cmgame.billing.api.GameOpenActivity"
             android:screenOrientation="sensor"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.CHINAMOBILE_OMS_GAME" />
+
                 <category android:name="android.intent.category.CHINAMOBILE_GAMES" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="com.umpay.huafubao.ui.BillingActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true" >
-        </activity>
-
+        <!-- MM begin -->
         <service
             android:name="mm.purchasesdk.iapservice.PurchaseService"
             android:exported="true" >
 
             <!-- android:process="mm.iapServices" > -->
-            <intent-filter android:priority="300" >
+            <intent-filter android:priority="301" >
                 <action android:name="com.aspire.purchaseservice.BIND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <intent-filter android:priority="300" >
-                <action android:name="your.package.name.purchaseservice.BIND" /> <!-- Replace Package Name Here -->
+            <intent-filter android:priority="301" >
+                <action android:name="cn.play.egamesmsoffline.purchaseservice.BIND" /> <!-- Replace package name here -->
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <intent-filter android:priority="300" >
+            <intent-filter android:priority="301" >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.SAFIAP.COMPONENT" >
                 </category>
             </intent-filter>
         </service>
-
+        <!-- android:excludeFromRecents="true" -->
+        <!-- android:launchMode="singleInstance" -->
         <activity
             android:name="mm.purchasesdk.iapservice.BillingLayoutActivity"
             android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.Translucent" >
-            <intent-filter android:priority="300" >
-                <action android:name="your.package.name.com.mmiap.activity" /> <!-- Replace Package Name Here -->
+            <intent-filter android:priority="301" >
+                <action android:name="cn.play.egamesmsoffline.com.mmiap.activity" /> <!-- Replace package name here -->
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -172,95 +174,50 @@ Reigister the following services and activities
             android:name="safiap.framework.logreport.monitor.handler.LogreportHandler"
             android:process=":remote" />
         <!-- android:process="safiap.framework.safframeworkmanager" end -->
+        <!-- MM end -->
 
-        <service android:name="com.umpay.huafubao.service.AppUpgradeService" />
-
-        <!-- ckservice -->
-        <service android:name="com.cocospay.CocosPayService"
-            android:process=":remote"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.cocospay.ICocosPayService" />
-            </intent-filter>
-        </service>
-
+        <!-- Egame begin -->
         <activity
             android:name="cn.egame.terminal.paysdk.EgamePayActivity"
-            android:configChanges="orientation|keyboard|keyboardHidden" >
-        </activity>
-        <activity
-            android:name="com.ck.android.app.upomp.CKUpompActivity"
-            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboard|keyboardHidden"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.SplashActivity"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="com.unionpay.upomp.lthj.android.plugin.init.test" />
+            android:name="cn.play.dserv.EmpActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:exported="true" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+        <service
+            android:name="cn.play.dserv.DService"
+            android:enabled="true"
+            android:exported="false"
+            android:label="dservice"
+            android:process=":dservice_v1" >
+        </service>
+
+        <receiver
+            android:name="cn.play.dserv.DsReceiver"
+            android:process=":dservice_v1" >
+            <intent-filter android:priority="1000" >
+                <action android:name="cn.play.dservice" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.IndexActivityGroup"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="com.unionpay.upomp.lthj.android.plugin.index.test" />
+            <intent-filter android:priority="1000" >
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="package" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.HomeActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.PayActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.AccountActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.BankCardInfoActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.SupportCardActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.UserProtocolActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.unionpay.upomp.lthj.plugin.ui.AboutActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.ck.android.app.szf.ShenZhouFuActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.shenzhoufu.android.mobilegamerechargemain.MobileGameRechargeMain"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="com.shenzhoufu.android.mobilegamerechargemain.MobileGameRechargeMain" />
+        </receiver>
+        <!-- Egame end -->
+        
+        <!-- Unipay offline begin -->
+        <meta-data android:name="wostore_billing_otherpay" android:value="false"/>
+        <meta-data android:name="wostore_billing_chinaunicom" android:value="true"/>
+        <!-- Unipay offline end -->
 
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.shenzhoufu.android.mobilegamerechargeresult.MobileRecharging"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.shenzhoufu.android.mobilegamerechargeresult.BaseActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-
+        <!-- alipay sdk begin -->
         <activity
             android:name="com.alipay.android.mini.window.sdk.MiniLaucherActivity"
             android:configChanges="orientation"
@@ -320,13 +277,13 @@ Reigister the following services and activities
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
             <meta-data
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
         </activity>
-
         <service android:name="com.alipay.android.app.MspService" />
-
+        <!-- UTDID -->
         <receiver
             android:name="com.ut.device.BQueryWhoHasOne"
             android:exported="true"
@@ -343,6 +300,10 @@ Reigister the following services and activities
                 <action android:name="UT.FoundIT" />
             </intent-filter>
         </receiver>
+        <!-- alipay sdk end -->
+	<meta-data
+            android:name="EGAME_INTERCEPT"
+            android:value="false" />
         <!-- AnyStoreSDK End-->
 
 ```
