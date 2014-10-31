@@ -356,8 +356,7 @@ import com.ckmobilling.PaymentResult;
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	
-	if (CocosPayApi.getInstance().showSplashScreen(this, getIntent())) {
-		return;	}
+	CocosPayApi.getInstance().enter(this);
    
     //Initialize
 	CocosPayApi.getInstance().initialize(this);
