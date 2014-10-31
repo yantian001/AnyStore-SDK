@@ -86,9 +86,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (CocosPayApi.getInstance().showSplashScreen(this, getIntent())) {
-            return;
-        }
+        CocosPayApi.getInstance().enter(this);
 
         // CocosPayApi.getInstance().setDebugMode(true);
         CocosPayApi.getInstance().initialize(this);
