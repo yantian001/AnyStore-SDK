@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
         // CocosPayApi.getInstance().setDebugMode(true);
         CocosPayApi.getInstance().initialize(this);
 
-        final ArrayList<PayItemInfo> list = CocosPayApi.getInstance()
+        final List<PayItemInfo> list = CocosPayApi.getInstance()
                 .getItemList(this);
 
         setContentView(R.layout.activity_main);

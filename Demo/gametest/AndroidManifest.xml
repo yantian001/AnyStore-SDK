@@ -8,7 +8,7 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
 
-    <!-- permissions -->
+    <!-- Add User permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -28,7 +28,9 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="com.alipay.mobile.command.trigger.permission" />
+
     <permission android:name="com.ut.permission.DEVICE_STATE" />
+    <permission android:name="com.alipay.mobile.command.trigger.permission" />
 
     <application
         android:name="com.chukong.anystore.App"
@@ -45,6 +47,7 @@
         </activity>
         
         <!-- AnyStoreSDK Start -->
+        <!-- CocosPay Service begin -->
         <service
             android:name="com.cocospay.CocosPayService"
             android:exported="true"
@@ -53,8 +56,9 @@
                 <action android:name="com.cocospay.ICocosPayService" />
             </intent-filter>
         </service>
+        <!-- CocosPay Service end -->
 
-        <activity android:name="com.cocospay.CocosPaySplashActivity" />
+        <!-- China Mobile Base -->
         <activity
             android:name="cn.cmgame.billing.api.GameOpenActivity"
             android:screenOrientation="sensor"
@@ -66,18 +70,19 @@
             </intent-filter>
         </activity>
 
-        <!-- MM begin -->
+        <!-- mm begin -->
         <service
             android:name="mm.purchasesdk.iapservice.PurchaseService"
             android:exported="true" >
 
+            <!-- android:process="mm.iapServices" > -->
             <intent-filter android:priority="301" >
                 <action android:name="com.aspire.purchaseservice.BIND" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter android:priority="301" >
-                <action android:name="com.chukong.anystore.purchaseservice.BIND" />
+                <action android:name="com.chukong.anystore.purchaseservice.BIND" /> <!-- Replace Package Name Here -->
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -88,12 +93,14 @@
                 </category>
             </intent-filter>
         </service>
+        <!-- android:excludeFromRecents="true" -->
+        <!-- android:launchMode="singleInstance" -->
         <activity
             android:name="mm.purchasesdk.iapservice.BillingLayoutActivity"
             android:configChanges="orientation|keyboardHidden"
             android:theme="@android:style/Theme.Translucent" >
             <intent-filter android:priority="301" >
-                <action android:name="com.chukong.anystore.com.mmiap.activity" />
+                <action android:name="com.chukong.anystore.com.mmiap.activity" /> <!-- Replace Package Name Here -->
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -157,9 +164,9 @@
             android:name="safiap.framework.logreport.monitor.handler.LogreportHandler"
             android:process=":remote" />
         <!-- android:process="safiap.framework.safframeworkmanager" end -->
-        <!-- MM end -->
+        <!-- mm end -->
 
-        <!-- Egame begin -->
+        <!-- egame begin -->
         <activity
             android:name="cn.egame.terminal.paysdk.EgamePayActivity"
             android:configChanges="orientation|keyboard|keyboardHidden"
@@ -193,12 +200,11 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <!-- Egame end -->
-        
-        <!-- Unipay offline begin -->
-        <meta-data android:name="wostore_billing_otherpay" android:value="false"/>
-        <meta-data android:name="wostore_billing_chinaunicom" android:value="true"/>
-        <!-- Unipay offline end -->
+
+        <meta-data
+            android:name="EGAME_INTERCEPT"
+            android:value="false" />
+        <!-- egame end -->
 
         <!-- alipay sdk begin -->
         <activity
@@ -229,7 +235,7 @@
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
         </activity>
-        <!-- 极简收银台主界面 -->
+        <!-- Alipay -->
         <activity
             android:name="com.alipay.android.mini.window.sdk.MiniPayActivity"
             android:configChanges="orientation"
@@ -249,7 +255,7 @@
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
         </activity>
-        <!-- 极简收银台链接查看界面 -->
+        <!-- Alipay -->
         <activity
             android:name="com.alipay.android.mini.window.sdk.MiniWebActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
@@ -267,7 +273,7 @@
                 android:name="com.taobao.android.ski.NODERIVATION"
                 android:value="true" />
         </activity>
-        <!-- 快捷支付服务 -->
+        <!-- Alipay -->
         <service android:name="com.alipay.android.app.MspService" />
         <!-- UTDID -->
         <receiver
@@ -287,9 +293,6 @@
             </intent-filter>
         </receiver>
         <!-- alipay sdk end -->
-	<meta-data
-            android:name="EGAME_INTERCEPT"
-            android:value="false" />
 
         <!-- AnyStoreSDK End-->
     </application>
