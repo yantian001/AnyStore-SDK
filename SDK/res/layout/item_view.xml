@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/item_code_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0001"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="?android:attr/textColorPrimary" />
+    
+    <TextView
+        android:id="@+id/item_name_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试测试测试"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?android:attr/textColorPrimary" />
+    
+    <TextView
+        android:id="@+id/item_price_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="100"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?android:attr/textColorPrimary" />
+
+</LinearLayout>
