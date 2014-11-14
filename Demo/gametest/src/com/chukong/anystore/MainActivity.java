@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,13 +85,24 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CocosPayApi.getInstance().enter(this);
-
-        // CocosPayApi.getInstance().setDebugMode(true);
         CocosPayApi.getInstance().initialize(this);
 
-        final List<PayItemInfo> list = CocosPayApi.getInstance()
-                .getItemList(this);
+        final List<PayItemInfo> list = CocosPayApi.getInstance().getItemList(this);
+        final List<PayItemInfo> list_new = new ArrayList();
+        int size = list.size();
+        
+        for(int i=0; i<size; i++) {
+        	String price = list.get(i).getItemPrice();
+        	if(CocosPayApi.getInstance().getItemSwitch(this)) {
+        		if(!(Integer.parseInt(price) / 100 > 30)){
+            		list_new.add(list.get(i));
+            	}
+        	} else {
+        		list_new.add(list.get(i));
+        	}
+        	
+        	
+        }
 
         setContentView(R.layout.activity_main);
 
@@ -107,7 +117,7 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
                 CocosPayApi.getInstance().doPayment(MainActivity.this,
-                        list.get(position).getPayCode(), new PaymentCallback() {
+                		list_new.get(position).getPayCode(), new PaymentCallback() {
 
                             @Override
                             public void paySuccess(PaymentResult result) {
@@ -135,7 +145,7 @@ public class MainActivity extends Activity {
                         });
             }
         });
-        listView.setAdapter(new ItemAdapter(this, list));
+        listView.setAdapter(new ItemAdapter(this, list_new));
     }
 
     @Override
